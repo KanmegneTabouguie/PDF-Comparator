@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Comparator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>PDF Comparator</h1>
+    <form method="POST" enctype="multipart/form-data">
+        <label for="file1">Select PDF File 1:</label>
+        <input type="file" name="file1" accept=".pdf" required><br>
+
+        <label for="file2">Select PDF File 2:</label>
+        <input type="file" name="file2" accept=".pdf" required><br>
+
+        <button type="submit">Compare PDFs</button>
+    </form>
+
+    {% if result is not none %}
+        {% if result['identical_text'] %}
+            <p>Text on the first page is identical.</p>
+        {% else %}
+            <p>Text on the first page is not identical.</p>
+        {% endif %}
+
+        <p>Number of pages in File 1: {{ result['num_pages1'] }}</p>
+        <p>Number of pages in File 2: {{ result['num_pages2'] }}</p>
+    {% endif %}
+</body>
+</html>
